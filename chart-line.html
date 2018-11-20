@@ -63,21 +63,14 @@ Often, it is used to show trend data, and the comparison of two data sets.
   </template>
 
   <script>
-    Polymer({
+    class ChartLine extends Polymer.mixinBehaviors([Polymer.IronResizableBehavior], ChartPropertyMixin(ContextMixin(ResizeMixin(Polymer.Element)))) {
+      static get is() {return 'chart-line'}
 
-      is: 'chart-line',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
+      connectedCallback() {
+        super.connectedCallback();
         this._setType('line');
       }
-
-    });
+    }
+    customElements.define(ChartLine.is, ChartLine);
   </script>
 </dom-module>
