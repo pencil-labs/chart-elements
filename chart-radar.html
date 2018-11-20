@@ -62,21 +62,14 @@ They are often useful for comparing the points of two or more different data set
   </template>
 
   <script>
-    Polymer({
+    class ChartRadar extends Polymer.mixinBehaviors([Polymer.IronResizableBehavior], ChartPropertyMixin(ContextMixin(ResizeMixin(Polymer.Element)))) {
+      static get is() {return 'chart-radar'}
 
-      is: 'chart-radar',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
+      connectedCallback() {
+        super.connectedCallback();
         this._setType('radar');
       }
-
-    });
+    }
+    customElements.define(ChartRadar.is, ChartRadar);
   </script>
 </dom-module>
