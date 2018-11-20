@@ -1,41 +1,43 @@
 <script>
-  var ChartBehaviors = ChartBehaviors || {};
-  /** @polymerBehavior */
-  ChartBehaviors.ChartPropertyBehavior = {
 
-    properties: {
+  const ChartPropertyMixin = superClass => class extends superClass {
 
-      type: {
-        type: String,
-        readOnly: true,
-        value: 'bar',
-      },
+    static get properties() {
 
-      chart: {
-        notify: true
-      },
+      return {
+        type: {
+          type: String,
+          readOnly: true,
+          value: 'bar',
+        },
 
-      data: {
-        type: Object,
-        value: function () {
-          return {};
+        chart: {
+          notify: true
+        },
+
+        data: {
+          type: Object,
+          value: function () {
+            return {};
+          }
+        },
+
+        options: {
+          type: Object,
+          value: function () {
+            return {};
+          }
         }
-      },
+      };
+    }
 
-      options: {
-        type: Object,
-        value: function () {
-          return {};
-        }
-      },
+    static get observers() {
+      return [
+        '_configurationChanged(data.*, options.*)'
+      ];
+    }
 
-    },
-
-    observers: [
-      '_configurationChanged(data.*, options.*)'
-    ],
-
-    _configurationChanged: function(dataRecord, optionsRecord) {
+    _configurationChanged(dataRecord, optionsRecord) {
       if (dataRecord.base.labels && dataRecord.base.datasets) {
         this.hasData = true;
       } else {
@@ -47,6 +49,6 @@
       }
     }
 
-  };
+  }
 
 </script>

@@ -1,28 +1,28 @@
 <script>
-  var ChartBehaviors = ChartBehaviors || {};
-  /** @polymerBehavior */
-  ChartBehaviors.ResizeBehavior = {
 
-    listeners: {
-      'iron-resize': '_onIronResize'
-    },
+  const ResizeMixin = superClass => class extends superClass {
+
+    connectedCallback() {
+      super.connectedCallback();
+      this.addEventListener('iron-resize', this._onIronResize.bind(this));
+    }
 
     // If an iron-resizer changes our size and notifies us
     // check to see if we have a height and if so, recreate
     // the chart
-    _onIronResize: function() {
+    _onIronResize() {
       this._queue();
-    },
+    }
 
     // This is a public method the user can call if they've
     // changed our dimensions with CSS.
-    resize: function() {
+    resize() {
       if (this.chart) {
         this.chart.resize();
         this.chart.render(true);
       }
     }
 
-  };
+  }
 
 </script>

@@ -55,22 +55,15 @@ It is sometimes used to show trend data, and the comparison of multiple data set
   </template>
 
   <script>
-    Polymer({
+    class ChartBar extends Polymer.mixinBehaviors([Polymer.IronResizableBehavior], ChartPropertyMixin(ContextMixin(ResizeMixin(Polymer.Element)))) {
+      static get is() {return 'chart-bar'}
 
-      is: 'chart-bar',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
+      connectedCallback() {
+        super.connectedCallback();
         this._setType('bar');
       }
-
-    });
+    }
+    customElements.define(ChartBar.is, ChartBar);
   </script>
 
 </dom-module>
